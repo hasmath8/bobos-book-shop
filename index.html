@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bobo's First Little Learning Adventure</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="brand">📚 Little Book Shop</div>
+  <div><a class="admin-link" href="admin.html">👨‍💼 Admin</a> <button id="cartBtn">🛒 Cart <span id="cartCount">0</span></button></div>
+</header>
+
+<main>
+  <section class="hero">
+    <div>
+      <p class="tag">A special little learning adventure</p>
+      <h1>Bobo's First Little Learning Adventure</h1>
+      <p>Discover Bobo's first adventure through fun, learning and imagination.</p>
+      <button class="primary" onclick="addToCart(1)">Buy Now</button>
+    </div>
+    <img class="hero-cover" src="book-cover.jpg" alt="Bobo's First Little Learning Adventure book cover">
+  </section>
+
+  <section class="product">
+    <div class="cover">
+      <img src="book-cover.jpg" alt="Bobo's First Little Learning Adventure book cover">
+    </div>
+    <div class="details">
+      <p class="tag">Children's Book</p>
+      <h2>Bobo's First Little Learning Adventure</h2>
+      <p class="author">By Bobo's Book Team</p>
+      <p class="description">A fun first learning adventure for little readers. Perfect for introducing children to reading, curiosity and discovery.</p>
+      <div class="price">LKR 450</div>
+      <p class="stock">✓ In stock</p>
+      <div class="actions">
+        <button class="primary" onclick="addToCart(1)">Add to Cart</button>
+        <button class="secondary" onclick="buyNow()">Buy Now</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="why">
+    <h2>Why you'll love it</h2>
+    <div class="cards">
+      <div>🌟 <b>Fun learning</b><small>Made for curious little minds.</small></div>
+      <div>📖 <b>Easy to enjoy</b><small>Simple and engaging reading.</small></div>
+      <div>🎁 <b>Lovely gift</b><small>A special book for little readers.</small></div>
+    </div>
+  </section>
+</main>
+
+<div class="modal hidden" id="cartModal">
+  <div class="modal-box">
+    <button class="close" onclick="closeCart()">×</button>
+    <h2>Your Cart</h2>
+    <div id="cartItems"></div>
+    <div class="total">Total: <strong id="cartTotal">LKR 0</strong></div>
+    <button class="primary full" onclick="checkout()">Proceed to Checkout</button>
+    <button class="whatsapp full" onclick="whatsappOrder()">💬 Order via WhatsApp</button>
+  </div>
+</div>
+
+<div class="modal hidden" id="orderModal">
+  <div class="modal-box">
+    <button class="close" onclick="closeOrder()">×</button>
+    <h2>Customer Details</h2>
+    <p class="form-note">Enter your details to place the order.</p>
+    <form id="orderForm" onsubmit="submitOrder(event)">
+      <input id="customerName" required placeholder="Your name">
+      <input id="customerPhone" required type="tel" placeholder="Phone number">
+      <textarea id="customerAddress" required placeholder="Delivery address"></textarea>
+      <select id="paymentMethod">
+        <option>Cash on Delivery</option>
+        <option>Bank Transfer</option>
+      </select>
+      <button class="primary full" type="submit">Place Order</button>
+    </form>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
