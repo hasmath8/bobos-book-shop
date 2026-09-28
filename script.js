@@ -51,10 +51,8 @@ function renderCart() {
 
   box.innerHTML = cart.map(i => `
     <div class="item">
-      <span>
-        ${i.title}<br>
-        <small>LKR ${i.price.toLocaleString()} × ${i.qty}</small>
-      </span>
+      <span>${i.title}<br>
+      <small>LKR ${i.price.toLocaleString()} × ${i.qty}</small></span>
       <button onclick="removeItem(${i.id})">Remove</button>
     </div>
   `).join("");
@@ -84,63 +82,13 @@ function closeOrder() {
   document.getElementById("orderModal").classList.add("hidden");
 }
 
-function orderText(name, phone, address, payment) {
-  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-
-  const items = cart
-    .map(i => `${i.title} x ${i.qty} - LKR ${(i.price * i.qty).toLocaleString()}`)
-    .join("\n");
-
-  return `📚 New Book Order%0A%0A${encodeURIComponent(items)}%0A%0A👤 Name: ${encodeURIComponent(name)}%0A📞 Phone: ${encodeURIComponent(phone)}%0A📍 Address: ${encodeURIComponent(address)}%0A💳 Payment: ${encodeURIComponent(payment)}%0A💰 Total: LKR ${total.toLocaleString()}`;
-}
-
 function submitOrder(e) {
   e.preventDefault();
-
-  const name = document.getElementById("customerName").value.trim();
-  const phone = document.getElementById("customerPhone").value.trim();
-  const address = document.getElementById("customerAddress").value.trim();
-  const payment = document.getElementById("paymentMethod").value;
-
-  const orders = JSON.parse(
-    localStorage.getItem("boboOrders") || "[]"
-  );
-
-  orders.push({
-    date: new Date().toLocaleString(),
-    name,
-    phone,
-    address,
-    payment,
-    items: [...cart],
-    total: cart.reduce((s, i) => s + i.price * i.qty, 0),
-    status: "Pending"
-  });
-
-  localStorage.setItem("boboOrders", JSON.stringify(orders));
-
-  const text = orderText(name, phone, address, payment);
-
-  window.open(
-    "https://wa.me/94702307435?text=" + text,
-    "_blank"
-  );
-
-  alert("Order saved! WhatsApp will open with your order details.");
-
-  cart = [];
-  save();
-  closeOrder();
-  closeCart();
+  alert("Order button is working!");
 }
 
 function whatsappOrder() {
-  if (!cart.length) {
-    alert("Your cart is empty.");
-    return;
-  }
-
-  document.getElementById("orderModal").classList.remove("hidden");
+  checkout();
 }
 
 function buyNow() {
