@@ -151,3 +151,6 @@ function buyNow() {
 document.getElementById("cartBtn").addEventListener("click", openCart);
 
 updateCount();
+<script src="script.js"></script>
+</body>
+</html>
