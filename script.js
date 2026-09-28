@@ -57,3 +57,6 @@ async function submitOrder(e){
   closeOrder();
   closeCart();
 }
+<script src="script.js"></script>
+</body>
+</html>
