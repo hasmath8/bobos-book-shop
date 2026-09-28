@@ -96,9 +96,12 @@ function buyNow() {
   openCart();
 }
 
-document.getElementById("cartBtn").addEventListener("click", openCart);
+const cartButton = document.getElementById("cartBtn");
+
+if (cartButton) {
+  cartButton.onclick = function () {
+    openCart();
+  };
+}
 
 updateCount();
-<script src="script.js"></script>
-</body>
-</html>
