@@ -25,24 +25,45 @@ function orderText(name,phone,address,payment){
   const items=cart.map(i=>`${i.title} x ${i.qty} - LKR ${(i.price*i.qty).toLocaleString()}`).join("\n");
   return `📚 New Book Order%0A%0A${encodeURIComponent(items)}%0A%0A👤 Name: ${encodeURIComponent(name)}%0A📞 Phone: ${encodeURIComponent(phone)}%0A📍 Address: ${encodeURIComponent(address)}%0A💳 Payment: ${encodeURIComponent(payment)}%0A💰 Total: LKR ${total.toLocaleString()}`;
 }
-function submitOrder(e){
+async function submitOrder(e){
   e.preventDefault();
-  const name=document.getElementById("customerName").value.trim();
-  const phone=document.getElementById("customerPhone").value.trim();
-  const address=document.getElementById("customerAddress").value.trim();
-  const payment=document.getElementById("paymentMethod").value;
-  const orders=JSON.parse(localStorage.getItem("boboOrders")||"[]");
-  orders.push({date:new Date().toLocaleString(),name,phone,address,payment,items:[...cart],total:cart.reduce((s,i)=>s+i.price*i.qty,0)});
-  localStorage.setItem("boboOrders",JSON.stringify(orders));
-  const text=orderText(name,phone,address,payment);
-  window.open("https://wa.me/94702307435?text="+text,"_blank");
-  alert("Order saved! WhatsApp will open with your order details.");
-  cart=[]; save(); closeOrder(); closeCart();
+
+  const name = document.getElementById("customerName").value.trim();
+  const phone = document.getElementById("customerPhone").value.trim();
+  const address = document.getElementById("customerAddress").value.trim();
+  const payment = document.getElementById("paymentMethod").value;
+
+  const total = cart.reduce((s,i) => s + i.price * i.qty, 0);
+
+  const { error } = await supabaseClient
+    .from("orders")
+    .insert([{
+      Customer_name: name,
+      Phone: phone,
+      address: address,
+      payment_method: payment,
+      items: cart,
+      total: total,
+      status: "Pending"
+    }]);
+
+  if (error) {
+    console.error(error);
+    alert("Order could not be saved. Please try again.");
+    return;
+  }
+
+  const text = orderText(name, phone, address, payment);
+
+  window.open(
+    "https://wa.me/94702307435?text=" + text,
+    "_blank"
+  );
+
+  alert("Order placed successfully!");
+
+  cart = [];
+  save();
+  closeOrder();
+  closeCart();
 }
-function whatsappOrder(){
-  if(!cart.length){alert("Your cart is empty.");return;}
-  document.getElementById("orderModal").classList.remove("hidden");
-}
-function buyNow(){addToCart(1);openCart();}
-document.getElementById("cartBtn").addEventListener("click",openCart);
-updateCount();
