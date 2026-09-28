@@ -48,10 +48,7 @@ async function submitOrder(e){
 
   const text = orderText(name, phone, address, payment);
 
-  window.open(
-    "https://wa.me/94702307435?text=" + text,
-    "_blank"
-  );
+  window.open("https://wa.me/94702307435?text="+text,"_blank");
 
   alert("Order placed successfully!");
 
