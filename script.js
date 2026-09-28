@@ -1,10 +1,3 @@
-const SUPABASE_URL ="https://rxgikktxofxynmyvumkd.supabase.co/rest/v1/";
-const SUPABASE_KEY = "sb_publishable_qd6l0jdQ_8fEgPB8cR6HGg_E2p0IqCN";
-
-const supabaseClient = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
 const book={id:1,title:"Bobo's First Little Learning Adventure",price:450};
 let cart=JSON.parse(localStorage.getItem("boboCart")||"[]");
 
