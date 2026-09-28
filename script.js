@@ -28,7 +28,7 @@ function submitOrder(e){
   orders.push({date:new Date().toLocaleString(),name,phone,address,payment,items:[...cart],total:cart.reduce((s,i)=>s+i.price*i.qty,0)});
   localStorage.setItem("boboOrders",JSON.stringify(orders));
   const text=orderText(name,phone,address,payment);
-  window.open("https://wa.me/?text="+text,"_blank");
+  window.open("https://wa.me/0702307435?text="+text,"_blank");
   alert("Order saved! WhatsApp will open with your order details.");
   cart=[]; save(); closeOrder(); closeCart();
 }
